@@ -7,6 +7,6 @@ print(f"{max(nums)}\n{nums.index(max(nums))+1}")
 # print(max(nums))
 # print(nums.index(max(nums)))
 
-## Optimizing ##
+## * Optimizing ##
 # nums=[int(input()) for i in range(9)]
 

@@ -4,6 +4,32 @@
 # 길이가 같으면 사전 순으로
 # 단, 중복된 단어는 하나만 남기고 제거해야 한다.
 
+import sys
+words = sorted(set(sys.stdin.readline().strip() for _ in range(int(sys.stdin.readline()))))
+words.sort(key=lambda x : len(x))
+sys.stdout.write("\n".join(words))
+
+
+## * Optimizing ##
+# import sys
+# input = sys.stdin.readline
+# print = sys.stdout.write
+
+# cnt = int(input())
+# A = []
+# for i in range(cnt):
+#   A.append(input().strip())
+
+# A = list(set(A))
+# A.sort()
+# A.sort(key=lambda x: len(x))
+
+# print("\n".join(A))
+
+
+
+##### ! import sys 전 > 런타임 에러 (recursionError)
+##### ! import sys 후 > 시간초과
 # # 1. 길이순으로 정렬
 # import sys
 # sys.setrecursionlimit(10**4)
@@ -40,29 +66,3 @@
 # s_d(words)
 
 # print(*words, sep="\n")
-
-##### import sys 전 > 런타임 에러 (recursionError)
-##### import sys 후 > 시간초과
-
-# my answer
-import sys
-words = sorted(set(sys.stdin.readline().strip() for _ in range(int(sys.stdin.readline()))))
-words.sort(key=lambda x : len(x))
-sys.stdout.write("\n".join(words))
-
-
-# Optimizing
-# import sys
-# input = sys.stdin.readline
-# print = sys.stdout.write
-
-# cnt = int(input())
-# A = []
-# for i in range(cnt):
-#   A.append(input().strip())
-
-# A = list(set(A))
-# A.sort()
-# A.sort(key=lambda x: len(x))
-
-# print("\n".join(A))

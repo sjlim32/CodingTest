@@ -19,12 +19,12 @@ for i in range(l_len):
 #     False
 
 
-## Optimizing
+## * Optimizing ##
 # i=iter(open(0))
 # next(i)
 # print(*sorted(map(int,i)),sep='\n')
 
-## Other Answer
+## * Other Answer ##
 # import sys
 
 # n = int(input())

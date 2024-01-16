@@ -9,7 +9,7 @@ n = int(input())
 print(fact(n))
 
 
-## Other Answer ##
+## * Other Answer ##
 
 # N=1
 # for i in range(int(input()), 1, -1):

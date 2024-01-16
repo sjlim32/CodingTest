@@ -16,7 +16,7 @@ for i in l:
 print(a)
 
 
-## Optimizing ##
+## * Optimizing ##
 ##### 자신의 제곱근 이하의 수까지만 검사
 
 input()

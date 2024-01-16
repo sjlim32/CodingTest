@@ -8,6 +8,6 @@ print(A//B)
 print(A%B)
 
 
-## Optimizing ##
+## * Optimizing ##
 # a, b = map(int, input().split())
 # print(a+b, a-b, a*b, a//b, a%b)
