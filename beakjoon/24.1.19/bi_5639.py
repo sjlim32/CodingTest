@@ -98,34 +98,34 @@ num.PrintTree()
 
 
 ## ! Other Wrong Answer ##
-# binery = [50, 30, 24, 5, 28, 45, 98, 52, 60]
+# binary = [50, 30, 24, 5, 28, 45, 98, 52, 60]
 
 # p = input()
 # for i in p.split('\n'):
 #   if i != '':
-#     binery.append(int(i))
+#     binary.append(int(i))
 
-# binery = []
+# binary = []
 
 # for i in sys.stdin:
 #   x = i.split('\n')
-#   binery.append(int(x[0]))
+#   binary.append(int(x[0]))
 
 
 # # 최소값 인덱스 검색 
-# idx = binery.index(min(binery))
+# idx = binary.index(min(binary))
 
 
 
 # # 인덱스 기준으로 분리
-# root = binery[0]
-# left = binery[1:idx+1]
-# right = deque(binery[idx+1:])
+# root = binary[0]
+# left = binary[1:idx+1]
+# right = deque(binary[idx+1:])
 
 # print(root, left, right)
 
 # while True:
-#   if any(n < root for n in binery):
+#   if any(n < root for n in binary):
 #     print(left.pop())
 #     if left:
 #       print(right.popleft()) 
@@ -136,3 +136,67 @@ num.PrintTree()
 #         print(right.pop())
 #       print(root)
 #       break;
+
+
+## ! OTHER ANSWER
+# import sys
+# input = sys.stdin.readline
+
+# class TreeNode:
+#     def __init__(self, value = 0):
+#         self.item = value
+#         self.left = None
+#         self.right = None
+        
+#     def node_value(self):
+#         return self.item
+    
+#     def add_left(self,value):
+#         self.left = TreeNode(value)
+        
+#     def add_right(self,value):
+#         self.right = TreeNode(value)
+    
+#     def add_node(self, value) :
+#         if value < self.item:
+#             if self.left != None :
+#                 self.left.add_node(value)
+#             else:
+#                 self.add_left(value)
+#         else:
+#             if self.right != None :
+#                 self.right.add_node(value)
+#             else:
+#                 self.add_right(value)
+
+# def postorder_traversal(node):
+#     if node.left != None:
+#         postorder_traversal(node.left)
+    
+#     if node.right != None:
+#         postorder_traversal(node.right)
+    
+#     print(node.node_value())
+#     return
+
+# n = 0
+# first = 0
+# while n == 0:
+#     try:
+#         first = int(input())
+#         n+=1
+#     except:
+#         break
+
+# root = TreeNode(first)
+
+# while 1<= n <10000 :
+#     try : 
+#         push = int(input())
+#         root.add_node(push)
+#     except:
+#         break
+#     n+=1
+
+# if root.item != 0 :
+#     postorder_traversal(root)

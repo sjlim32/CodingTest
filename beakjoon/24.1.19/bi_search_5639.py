@@ -6,11 +6,11 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-binery = []
+binary = []
 
 for i in sys.stdin:
   x = i.split('\n')
-  binery.append(int(x[0]))
+  binary.append(int(x[0]))
 
 def post_order(start, end, pre_list):
   if start > end:
@@ -29,7 +29,7 @@ def post_order(start, end, pre_list):
 
   print(root)
 
-post_order(0, len(binery)-1, binery)
+post_order(0, len(binary)-1, binary)
 
 
 
