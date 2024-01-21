@@ -3,41 +3,52 @@
 # 이는 A번 정점과 B번 정점이 가중치 C인 간선으로 연결되어 있다는 의미이다. 
 # C는 음수일 수도 있으며, 절댓값이 1,000,000을 넘지 않는다.
 
+# ? kruskal Algorithm
+# ? 가중치의 오름차순으로 정렬해 놓은 뒤, 사이클을 형성하지 않는 선에서 정렬된 순서대로 간선을 선택
+# Union-Find 란?
+# Disjoint Set (서로소 집합) 을 표현하는 자료구조
+# 서로 다른 두 집합을 병합하는 Union 연산, 집합 원소가 어떤 집합에 속해있는지 찾는 Find 연산을 지원하기에 이러한 이름이 붙었음
 
 import sys
 input = sys.stdin.readline
 
-def find_parent(parent, a):
-  if parent[a] != a:
-    parent[a] = find_parent(parent, parent[a])
-  return parent[a]
+# vertexs[a]가 a가 아닌 경우(vertex 리스트는 value가 인덱스 번호 순으로 되어있음), vertex[a]에 할당되어 있는 값을 리턴
+def find_node(vertexs, a):
+  if vertexs[a] != a:
+    vertexs[a] = find_node(vertexs, vertexs[a])
+  return vertexs[a]
 
-def union_parent(parent, a, b):
-  a = find_parent(parent, a)
-  b = find_parent(parent, b)
+def union_parent(vertexs, a, b):
+  a = find_node(vertexs, a)
+  b = find_node(vertexs, b)
   
   if a < b:
-    parent[b] = a
+    vertexs[b] = a
   else:
-    parent[a] = b
+    vertexs[a] = b
 
 node, edge = map(int, input().split())
 
 edges = []
 result = 0
 
-parent = [ i for i in range(node+1)]
-print(parent)
+# 1부터 node 까지 노드배열 생성
+vertexs = [ i for i in range(node+1)]
 
 for _ in range(edge):
+# 시작 노드, 도착 노드, 노드 사이의 가중치를 저장
   start, end, weight = map(int, input().split())
   edges.append([start, end, weight])
 
+# 가중치를 기준으로 오름차순 정렬
 edges.sort(key=lambda edge: edge[2])
 
+# find_node (p, a) 와 (p, b) 값이 서로 다르면, vertexs 리스트의 값을 작은 쪽으로 통일
+# 통일하는 이유 = a가 b 보다 작을 때, 가중치가 오름차순으로 정렬되어 있기 때문에
+# b번 노드로 가는 가장 빠른 길이 a 노드이기 때문에 다른 노드에서 방문하는 것을 배제하기 위함
 for start, end, weight in edges:
-  if find_parent(parent, start) != find_parent(parent, end):
-    union_parent(parent, start, end)
+  if find_node(vertexs, start) != find_node(vertexs, end):
+    union_node(vertexs, start, end)
     result += weight
 
 sys.stdout.write(str(result))
