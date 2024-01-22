@@ -8,6 +8,7 @@
 
 import sys
 from collections import deque
+input = sys.stdin.readline
 
 # def bfs (graph, node, visited):
 #   queue = deque([node])
@@ -33,3 +34,37 @@ from collections import deque
 
 #   visited = [False] * 9
 #   bfs(graph, 1, visited)
+
+n, m = map(int, input().split())
+maze = []
+
+for _ in range(n):
+  maze.append(list(map(int, list(input().strip('\n')))))
+
+print(maze)
+
+def BFS():
+  dx = [1, 0, -1, 0]
+  dy = [0, 1, 0, -1]
+
+  q = deque([(0, 0, 1)])
+  visited = set([(0, 0)])
+
+  while q:
+    x, y, dist = q.popleft()
+
+    if x == n - 1 and y == m - 1:
+      return str(dist)
+
+    for i in range(4):
+      fx = x + dx[i]
+      fy = y + dy[i]
+    
+      if 0 <= fx < n and 0 <= fy < m and (fx, fy) not in visited:
+        if maze[fx][fy] == 1:
+          visited.add((fx, fy))
+          q.append((fx, fy, dist + 1))
+
+
+# print(BFS())
+sys.stdout.write(BFS())
