@@ -18,7 +18,7 @@ def find_node(vertexs, a):
     vertexs[a] = find_node(vertexs, vertexs[a])
   return vertexs[a]
 
-def union_parent(vertexs, a, b):
+def union_node(vertexs, a, b):
   a = find_node(vertexs, a)
   b = find_node(vertexs, b)
   
