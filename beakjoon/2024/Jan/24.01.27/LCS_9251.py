@@ -9,8 +9,9 @@
 import sys
 sys.setrecursionlimit(10**6)
 
+## ? 공통부분 "문자열 "을 출력하는 방법
 def LCS(y: int, x: int, result: list = []) -> list :
-  if y < 0 and x < 0:
+  if y < 0 or x < 0:
     return
 
   else:  
@@ -28,10 +29,14 @@ def LCS(y: int, x: int, result: list = []) -> list :
         LCS(y - 1, x - 1, result)
       
       else:
+        result.reverse()
         return result
 
+  result.reverse()
   return result
 
+
+## ? 공통 부분 "문자열의 길이"를 출력하는 방법
 if __name__ == "__main__":
   str1 = input()
   str2 = input()
@@ -46,13 +51,34 @@ if __name__ == "__main__":
     for j in range(1, m+1):
       DP[i][j] = DP[i - 1][j - 1] + 1 if str1[i-1] == str2[j-1] else max(DP[i - 1][j], DP[i][j - 1])
   
-      # if str1[i] == str2[j]:
+      # if str1[i - 1] == str2[j - 1]:
       #   DP[i][j] = DP[i - 1][j - 1] + 1 
       # else:
       #   DP[i][j] = max(DP[i - 1][j], DP[i][j - 1])
-  # res = LCS(n, m)
-  # res.reverse()
-  # res_str = ''.join(res)
+
+  print(max(max(DP)))
+  # res = ''.join(LCS(n, m))
   # print(res)
-  # print(res_str)
-  print(len(LCS(n, m)))
+  # print(len(LCS(n, m)))
+
+## * Optimizing
+## ? 메모리를 사용하지 않고 가장 긴 문자열의 길이만 간단하게 출력
+# import sys
+# input = sys.stdin.readline
+# X = input().rstrip()
+# Y = input().rstrip()
+
+# def answer(X, Y) :
+# 	DP = [0] * 1000
+
+# 	for i, x in enumerate(X):
+# 		cnt = 0
+# 		for j, y in enumerate(Y):
+# 			if cnt < DP[j]:
+# 				cnt = DP[j]
+# 			elif x == y:
+# 				DP[j] = cnt + 1
+	
+# 	return max(DP)
+
+# print(answer(X, Y))
