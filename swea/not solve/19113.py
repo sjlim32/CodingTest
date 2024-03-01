@@ -10,13 +10,20 @@ def bin_search(arr: list[int], chk_list: list[bool], target: int) -> int:
     pivot = (left + right) // 2
     
     if arr[pivot] == target:
-        return pivot
+      if chk_list[pivot]:
+        right = pivot - 1
+        continue
+      
+      return pivot
 
     elif arr[pivot] < target:
       left = pivot + 1
     
     else:
-      right = pivot -1
+      right = pivot - 1
+
+  if arr[left] == target:
+    return left
   
   return -1
 
@@ -35,27 +42,21 @@ def find_disCnt_price(result: int, price_list: list[int]) -> None:
 
   # return res
 
-  # # ! 불리언 리스트 생성 후, 불리언 값 갱신
+  # ? 이진 검색 & 인덱스 TRUE / FALSE 확인
   chk_list = [False] * len(price_list)
   res = []
   cnt = 0
   chk_res = 0
 
-  # O(n)
   for i in range(len(price_list) - 1, -1, -1):   
     if not chk_list[i] and price_list[i] % 4 == 0:
       chk_price = price_list[i] * 3 // 4
       chk_idx = bin_search(price_list[:i], chk_list, chk_price)
 
-      # O(n log n)
       if chk_idx != -1:
-        # 반환받은 값이 중복이면, 인접 값 중에 False인 값을 확인해야함
-        if not chk_list[chk_idx]:
           res.append(chk_price)
           chk_list[chk_idx] = True
           cnt += 1
-
-        # 바이너리에서도 chk_list를 확인해서, 그 값이 true인지 확인해야 함
 
     if cnt == result :
       return res
@@ -85,6 +86,7 @@ def find_disCnt_price(result: int, price_list: list[int]) -> None:
 
 if __name__ == '__main__' :
   tc = int(input())
+  ans_list = []
   
   for i in range(tc):
     result = int(input())
@@ -93,35 +95,25 @@ if __name__ == '__main__' :
     # O(n log n)
     ans = find_disCnt_price(result, price_list)
     ans.sort()
-    print(f"#{i+1} {' '.join(map(str, ans))}")
-    
-    # print(f"#{i+1} ", end="")
-    # for i in range (len(ans)):
-    #   if ans[i]:
-    #     print(price_list[i], end=" ")
-    # print("")
+    # print(f"#{i+1} {' '.join(map(str, ans))}")
+    ans_list.append(ans)
+  
+  for j, ans in enumerate(ans_list):
+    print(f"#{j+1} {' '.join(map(str, ans))}")
 
-# O(n^2)를 줄이는 방법
-# 
-
-# * TC1
-# 2
+# * TC
+# 4
 # 3
 # 15 20 60 75 80 100
 # 4
 # 90 90 120 120 120 150 160 200
-
-# * <<res>>
-# * #1 15 60 75
-# * #2 90 90 120 150
-
-# * TC2
-# 2
 # 4
 # 15 18 20 21 24 24 28 32
 # 5
 # 3 4 6 8 9 12 12 15 16 20
 
 # * <<res>>
-# * #1 15 18 21 24
-# * #2 3 6 9 12 15
+# * #1 15 60 75
+# * #2 90 90 120 150
+# * #3 15 18 21 24
+# * #4 3 6 9 12 15

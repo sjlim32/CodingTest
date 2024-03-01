@@ -14,41 +14,70 @@ input = sys.stdin.readline
 print = sys.stdout.write
 sys.setrecursionlimit(10**6)
 
-def dfs(node: int, graph: list[list], visited: dict[int, int]) -> None:
-  global index
-  if node in visited:
-    return;
+# def dfs(node: int, graph: list[list], visited: dict[int, int]) -> None:
+#   global index
+#   if node in visited:
+#     return;
 
-  visited[node] = index
-  graph[node].sort()
+#   visited[node] = index
+#   graph[node].sort()
 
-  for v in graph[node]:
-    if v not in visited:
-      index += 1
-      dfs(v, graph, visited)
+#   for v in graph[node]:
+#     if v not in visited:
+#       index += 1
+#       dfs(v, graph, visited)
 
+# if __name__ == "__main__":
+  
+#   vertex, edge, start = map(int, input().split())
+#   graph = list([] for _ in range(vertex + 1))
+#   visited = defaultdict(int)
+#   index = 1
+  
+#   for _ in range(edge):
+#     s, e = map(int, input().split())
+#     graph[s].append(e)
+#     graph[e].append(s)
+
+#   dfs(start, graph, visited)
+#   print(f"{visited}\n")
+#   for i in range(1, vertex + 1):
+#     if visited[i]:
+#       print(f"{visited[i]}\n")
+#     else:
+#       print("0\n")
+
+############* OPTIMIZING *############
 if __name__ == "__main__":
-  
   vertex, edge, start = map(int, input().split())
-  graph = list([] for _ in range(vertex + 1))
-  visited = defaultdict(int)
-  index = 1
+  visited = [0] * (vertex + 1)
   
+  graph_dict = defaultdict(list)
   for _ in range(edge):
     s, e = map(int, input().split())
-    graph[s].append(e)
-    graph[e].append(s)
+    graph_dict[s].append(e)
+    graph_dict[e].append(s)
 
-  dfs(start, graph, visited)
-  print(f"{visited}\n")
-  for i in range(1, vertex + 1):
-    if visited[i]:
-      print(f"{visited[i]}\n")
-    else:
-      print("0\n")
+  ########? Stack ?########
+  order = 0
+  stack = [start]
+  while stack:
+    node = stack.pop()
+    if visited[node]:
+      continue
 
+    order += 1
+    visited[node] = order
 
-# e.g.1
+    for next_node in sorted(graph_dict[node], reverse=True):
+      if visited[next_node] == 0:
+        stack.append(next_node)
+
+  ########? print ?########
+  for visited_node in visited[1:]:
+    print(f"{visited_node}\n")
+    
+# e.g : result = 1 2 3 4 0
 # 5 5 1
 # 1 4
 # 1 2
@@ -56,11 +85,23 @@ if __name__ == "__main__":
 # 2 4
 # 3 4
 
-# e.g.2
+# e.g : result = 1 2 3 4 5
 # 5 6 1
 # 1 4
 # 1 2
 # 2 3
 # 2 4
 # 3 4
-# 5 1 
+# 5 1
+
+# e.g : result = 3 2 5 1 6 4
+# 6 8 4
+# 1 6
+# 1 2
+# 2 6
+# 2 3
+# 2 4
+# 3 5
+# 4 5
+# 3 4
+
