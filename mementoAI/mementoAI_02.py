@@ -6,9 +6,9 @@
 def solution(num: int):
   if len(num) < 4 or len(num) > 20:
     return
-  else:
-    new_num = '*' * (len(num) - 4) + num[-4:]
-    return print(new_num)
+  
+  new_num = '*' * (len(num) - 4) + num[-4:]
+  return print(new_num)
 
 phone_number = input()
 solution(phone_number)

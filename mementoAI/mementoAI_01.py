@@ -3,12 +3,11 @@
 # 다음 제한 조건을 보고, 조건을 만족하는 함수, solution을 완성해주세요.
 
 def solution(x: int, n: int):
-  answer = []
+  if n < 1 or n > 1000 or x < -10000000 or x > 10000000:
+    return
   
-  for i in range(1, n + 1):
-    answer.append(x * i)
-  
-  print(answer)
+  answer = list(map(lambda i: x * i, range(1, n + 1)))
+  return print(answer)
 
 x = int(input())
 n = int(input())
