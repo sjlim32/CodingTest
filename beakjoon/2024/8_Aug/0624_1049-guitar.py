@@ -35,7 +35,7 @@ if __name__ == "__main__" :
   print(ans)
 
 
-######* OPTIMIZING *######
+###### OPTIMIZING *######
 lines, brands = map(int, input().split())
 list = []
 for r in range(brands):
